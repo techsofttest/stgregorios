@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import EventCard from "@/components/events/EventCard";
-import DetailStorySection from "@/components/news/DetailStorySection";
+import DetailStorySection from "@/components/detailed/DetailStorySection";
 
 interface EventsGridSectionProps {
       category: {
@@ -156,8 +156,7 @@ useEffect(() => {
               duration={650}
             >
               <div className="h-full">
-                <EventCard item={item} aspectRatioClass="aspect-[3/4]" showExcerpt={true}
-          onLearnMore={() => setSelectedNews(item)} />
+                <EventCard item={item} aspectRatioClass="aspect-[3/4]" showExcerpt={true} />
               </div>
             </ScrollReveal>
           ))}
@@ -178,14 +177,6 @@ useEffect(() => {
             </button>
           </div>
         )}
-         <DetailStorySection
-            isOpen={selectedNews !== null}
-            onClose={() => setSelectedNews(null)}
-            category={selectedNews?.type ?? ""}
-            title={selectedNews?.title ?? ""}
-            date={selectedNews?.event_date ?? ""}
-            content={selectedNews?.content ?? ""}
-          />
       </div>
     </section>
   );

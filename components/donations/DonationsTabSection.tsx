@@ -30,9 +30,9 @@ export default function DonationsTabSection({ donation, payment }: DataProp) {
 
   const Tab = [
     { id: "students", tabLabel: "Educational Aid" },
-    { id: "housing", tabLabel: "Bhavana Nirmanam" },
-    { id: "elderly", tabLabel: "Elder Care" },
-    { id: "charity", tabLabel: "Charity & Medical" },
+    { id: "housing", tabLabel: "Medical Aid" },
+    { id: "elderly", tabLabel: "Natural Calamity Aid" },
+    { id: "charity", tabLabel: "Donations" },
   ];
   
   const [activeTabId, setActiveTabId] = useState<string>("students");
@@ -351,11 +351,6 @@ export default function DonationsTabSection({ donation, payment }: DataProp) {
       <DonationModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        cause={{
-          id: activeTabObj.id,
-          tabLabel: activeTabObj.tabLabel,
-          badge: activeDonation?.title || activeTabObj.tabLabel,
-        }}
       />
     </section>
   );

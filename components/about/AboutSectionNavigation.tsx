@@ -3,15 +3,12 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
-type TabValue = "parish" | "vision" | "patron-saint-st-gregorios";
+type TabValue = "parish" | "vision";
 
 const tabs: { label: string; value: TabValue }[] = [
   { label: "Parish", value: "parish" },
   { label: "Vision", value: "vision" },
-  {
-    label: "Patron Saint (St Gregorios)",
-    value: "patron-saint-st-gregorios",
-  },
+
 ];
 
 export default function AboutSectionNavigation() {
@@ -65,7 +62,6 @@ export default function AboutSectionNavigation() {
     const validTabs: TabValue[] = [
       "parish",
       "vision",
-      "patron-saint-st-gregorios",
     ];
 
     const scrollToSection = () => {
@@ -133,7 +129,12 @@ export default function AboutSectionNavigation() {
             {tab.label}
           </button>
         ))}
-
+        <Link
+          href="/patron-saint-st-gregorios"
+          className="flex-shrink-0 whitespace-nowrap border border-[#171715]/10 bg-white px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#3d3a34] transition-all duration-300 hover:border-[#a43a32] hover:text-[#a43a32] sm:px-5 sm:text-sm"
+        >
+         Patron Saint (St. Gregorios)
+        </Link>
         <Link
           href="/church-history"
           className="flex-shrink-0 whitespace-nowrap border border-[#171715]/10 bg-white px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#3d3a34] transition-all duration-300 hover:border-[#a43a32] hover:text-[#a43a32] sm:px-5 sm:text-sm"

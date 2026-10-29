@@ -56,7 +56,7 @@ export const megaMenuCategories: MenuCategory[] = [
         href: "/antiochian-faith-protection-movement",
       },
       { label: "Prayer Fellowships", href: "/prayer-fellowships" },
-      { label: "Choir", href: "/choir" },      { label: "Clergy", href: "/clergy" },
+      { label: "Choir", href: "/choir" },      { label: "Altar Boys", href: "/altar-boys" },
     ],
   },
   {

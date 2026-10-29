@@ -5,26 +5,18 @@ import Image from "next/image";
 import FloatingInputField from "@/components/ui/FloatingInputField";
 import FloatingTextarea from "@/components/ui/FloatingTextarea";
 
-// Updated type definition to include optional badge & title
-type CauseTab = {
-  id: string;
-  tabLabel: string;
-  badge?: string;
-  title?: string;
-};
-
 interface DonationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  cause: CauseTab;
 }
 
-export default function DonationModal({ isOpen, onClose, cause }: DonationModalProps) {
+export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [amount, setAmount] = useState("");
   const [transactionId, setTransactionId] = useState("");
+  const [cause, setCause] = useState("donation");
   const [screenshotFile, setScreenshotFile] = useState<File | null>(null);
   const [notes, setNotes] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -74,7 +66,7 @@ export default function DonationModal({ isOpen, onClose, cause }: DonationModalP
       formData.append("phone", phone);
       formData.append("amount", amount);
       formData.append("transaction_id", transactionId);
-      formData.append("cause", cause.tabLabel);
+      formData.append("cause", cause === "charity" ? "Charity" : "Donation");
       formData.append("notes", notes);
 
       if (screenshotFile) {
@@ -120,6 +112,7 @@ export default function DonationModal({ isOpen, onClose, cause }: DonationModalP
     setPhone("");
     setAmount("");
     setTransactionId("");
+    setCause("donation");
     setScreenshotFile(null);
     setNotes("");
     setIsSubmitted(false);
@@ -173,7 +166,7 @@ export default function DonationModal({ isOpen, onClose, cause }: DonationModalP
                 Thank You for Your Generosity
               </h3>
               <p className="mt-3 text-sm text-[#171715]/85 leading-relaxed max-w-md">
-                Dear <span className="font-semibold text-[#071b27]">{fullName}</span>, your donation details for <span className="font-semibold text-[#a43a32]">{cause.tabLabel}</span> have been recorded. Our church trustees will verify the transaction and issue an official receipt.
+                Dear <span className="font-semibold text-[#071b27]">{fullName}</span>, your contribution details for <span className="font-semibold text-[#a43a32]">{cause === "charity" ? "Charity" : "Donation"}</span> have been recorded. Our church trustees will verify the transaction and issue an official receipt.
               </p>
               {transactionId && (
                 <div className="mt-4 px-4 py-2 bg-[#f7f4ed] border border-[#171715]/10 text-xs font-mono text-[#071b27]">
@@ -194,13 +187,11 @@ export default function DonationModal({ isOpen, onClose, cause }: DonationModalP
           ) : (
             <div>
               <div className="pb-4 mb-5 border-b border-[#171715]/10">
-                {cause.badge && (
-                  <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#a43a32]">
-                    {cause.badge}
-                  </span>
-                )}
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#a43a32]">
+                  Sacred Offering & Support
+                </span>
                 <h3 id="donation-modal-title" className="font-display text-2xl sm:text-3xl font-bold text-[#071b27] mt-1">
-                  Confirm Your Donation
+                  Confirm Your Contribution
                 </h3>
                 <p className="text-xs sm:text-sm text-[#171715]/85 mt-1 font-normal">
                   Submit your payment details after scanning the QR code or transferring via UPI / Bank.
@@ -308,6 +299,31 @@ export default function DonationModal({ isOpen, onClose, cause }: DonationModalP
                       setScreenshotFile(file);
                     }}
                   />
+                </div>
+
+                {/* Dropdown for Donation / Charity Category */}
+                <div className="relative w-full">
+                  <select
+                    id="contribution-category"
+                    value={cause}
+                    onChange={(e) => setCause(e.target.value)}
+                    className="peer w-full px-3.5 pt-5 pb-2 bg-white border border-[#171715]/40 text-[#171715] font-medium text-sm focus:outline-none focus:border-[#071b27] focus:ring-1 focus:ring-[#071b27] transition-all rounded-none appearance-none cursor-pointer"
+                  >
+                    <option value="donation">Donation</option>
+                    <option value="charity">Charity</option>
+                  </select>
+                  <label
+                    htmlFor="contribution-category"
+                    className="absolute left-3.5 top-3.5 text-[#171715]/80 text-xs font-semibold uppercase tracking-wider transition-all duration-200 pointer-events-none origin-[0] transform -translate-y-2.5 scale-75 select-none"
+                  >
+                    Contribution Type
+                  </label>
+                  {/* Select dropdown caret */}
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-[#171715]/80">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
                 </div>
 
                 <FloatingTextarea
