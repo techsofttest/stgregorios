@@ -4,6 +4,7 @@ import ClosingSection from "@/components/home/ClosingSection";
 import DetailHero from "@/components/detailed/DetailHero";
 import DetailGallerySection from "@/components/detailed/DetailGallerySection";
 import DetailStorySection from "@/components/detailed/DetailStorySection";
+import Navigatiion from "@/components/detailed/Navigatiion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Link from "next/link";
 
@@ -137,48 +138,7 @@ export default async function DetailPage({ params }: PageProps) {
         imageSrc={image}
       />
 
-      {response.category && response.category.length > 0 && (
-        <ScrollReveal direction="up" duration={700}>
-          <nav
-            aria-label="Related pages"
-            className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-2 px-4 py-8 sm:gap-3 sm:px-6"
-          >
-            {response.category.map((tab) => {
-              const tabSlug = tab.slug.trim();
-
-              const href =
-                tabSlug.startsWith("http://") ||
-                tabSlug.startsWith("https://") ||
-                tabSlug.startsWith("/")
-                  ? tabSlug
-                  : tabSlug.startsWith("#")
-                    ? `/about${tabSlug}`
-                    : `/${tabSlug}`;
-
-              // Check if current page slug or name matches the tab
-              const isActive =
-                tabSlug.toLowerCase() === slug.toLowerCase() ||
-                item?.name === tab.name ||
-                item?.title === tab.name;
-
-              return (
-                <Link
-                  key={tab.id}
-                  href={href}
-                  className={`cursor-pointer px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 sm:px-5 sm:text-sm ${
-                    isActive
-                      ? "bg-[#a43a32] text-white shadow-sm"
-                      : "border border-[#171715]/10 bg-white text-[#3d3a34] hover:border-[#a43a32] hover:text-[#a43a32]"
-                  }`}
-                >
-                  {tab.name}
-                </Link>
-              );
-            })}
-          </nav>
-        </ScrollReveal>
-      )}
-
+      <Navigatiion category={response.category}slug={slug} item={item}/>
       <DetailStorySection content={item?.content ?? ""} />
 
       {galleryItems.length > 0 && (

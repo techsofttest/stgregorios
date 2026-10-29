@@ -1,7 +1,6 @@
-
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import CommitteeMemberCard from "@/components/committee/CommitteeMemberCard";
@@ -34,6 +33,51 @@ export default function CommitteeGridSection({
   const [selectedCategory, setSelectedCategory] = useState<string | "All">(
     "All"
   );
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  // Convert vertical mouse wheel scrolling into horizontal scrolling when hovering
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY;
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => el.removeEventListener("wheel", handleWheel);
+  }, []);
+
+  // Mouse drag-to-scroll handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    isDragging.current = true;
+    startX.current = e.pageX - scrollRef.current.offsetLeft;
+    scrollLeft.current = scrollRef.current.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    isDragging.current = false;
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5; // Drag speed multiplier
+    scrollRef.current.scrollLeft = scrollLeft.current - walk;
+  };
 
   const filteredMembers =
     selectedCategory === "All"
@@ -95,35 +139,44 @@ export default function CommitteeGridSection({
       </div>
 
       <div className="relative z-10 mx-auto max-w-[1500px] px-5 sm:px-12 lg:px-16">
-        {/* Dynamic category filters */}
+        {/* Dynamic category filters with smooth horizontal scroll & drag support */}
         <ScrollReveal direction="up" duration={700}>
-          <div className="mb-14 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
-            <button
-              type="button"
-              onClick={() => setSelectedCategory("All")}
-              className={`rounded-none border px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 sm:text-sm ${
-                selectedCategory === "All"
-                  ? "border-[#a43a32] bg-[#a43a32] text-white shadow-sm"
-                  : "border-[#171715]/10 bg-white text-[#3d3a34] hover:border-[#a43a32] hover:text-[#a43a32]"
-              }`}
+          <div className="relative mb-14">
+            <div
+              ref={scrollRef}
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              onMouseUp={handleMouseUp}
+              onMouseMove={handleMouseMove}
+              className="flex items-center justify-start sm:justify-center gap-2.5 sm:gap-3 overflow-x-auto pb-4 pt-1 touch-pan-x select-none cursor-grab active:cursor-grabbing [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             >
-              All Members
-            </button>
-
-            {categories.map((category) => (
               <button
-                key={category.id}
                 type="button"
-                onClick={() => setSelectedCategory(category.name)}
-                className={`rounded-none border px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 sm:text-sm ${
-                  selectedCategory === category.name
+                onClick={() => setSelectedCategory("All")}
+                className={`flex-shrink-0 whitespace-nowrap rounded-none border px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 sm:text-sm cursor-pointer ${
+                  selectedCategory === "All"
                     ? "border-[#a43a32] bg-[#a43a32] text-white shadow-sm"
                     : "border-[#171715]/10 bg-white text-[#3d3a34] hover:border-[#a43a32] hover:text-[#a43a32]"
                 }`}
               >
-                {category.name}
+                All Members
               </button>
-            ))}
+
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  type="button"
+                  onClick={() => setSelectedCategory(category.name)}
+                  className={`flex-shrink-0 whitespace-nowrap rounded-none border px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 sm:text-sm cursor-pointer ${
+                    selectedCategory === category.name
+                      ? "border-[#a43a32] bg-[#a43a32] text-white shadow-sm"
+                      : "border-[#171715]/10 bg-white text-[#3d3a34] hover:border-[#a43a32] hover:text-[#a43a32]"
+                  }`}
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
           </div>
         </ScrollReveal>
 

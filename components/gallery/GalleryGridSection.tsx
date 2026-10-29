@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -21,6 +21,10 @@ interface GalleryGridSectionProps {
 
 export default function GalleryGridSection({ items }: GalleryGridSectionProps) {
   const [modalItem, setModalItem] = useState<GalleryItem | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
 
   const categories = Array.from(
     new Map(
@@ -35,6 +39,46 @@ export default function GalleryGridSection({ items }: GalleryGridSectionProps) {
   );
 
   const [activeTab, setActiveTab] = useState("");
+
+  // Convert vertical mouse wheel scrolling into horizontal scrolling when hovering
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY;
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => el.removeEventListener("wheel", handleWheel);
+  }, []);
+
+  // Mouse drag-to-scroll handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    isDragging.current = true;
+    startX.current = e.pageX - scrollRef.current.offsetLeft;
+    scrollLeft.current = scrollRef.current.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    isDragging.current = false;
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5; // Drag speed multiplier
+    scrollRef.current.scrollLeft = scrollLeft.current - walk;
+  };
 
   // Initialize and sync activeTab with URL hash (e.g. #video-gallery or #video or #photos)
   useEffect(() => {
@@ -133,20 +177,31 @@ export default function GalleryGridSection({ items }: GalleryGridSectionProps) {
       <div className="relative z-10 mx-auto max-w-[1500px] px-6 sm:px-10 lg:px-16">
         {/* Gallery Tabs */}
         <ScrollReveal direction="up" duration={700}>
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8 sm:mb-10">
-            {categories.map((category) => (
-              <button
-                key={category.slug}
-                onClick={() => handleTabChange(category.slug)}
-                className={`px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 rounded-none cursor-pointer ${
-                  activeTab === category.slug
-                    ? "bg-[#a43a32] text-white shadow-sm"
-                    : "bg-white text-[#3d3a34] border border-[#171715]/10 hover:border-[#a43a32] hover:text-[#a43a32]"
-                }`}
-              >
-                {category.title}
-              </button>
-            ))}
+          <div className="relative mb-8 sm:mb-10">
+            <div
+              ref={scrollRef}
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              onMouseUp={handleMouseUp}
+              onMouseMove={handleMouseMove}
+              className="flex items-center justify-start sm:justify-center gap-2 sm:gap-3 overflow-x-auto pb-4 pt-1 touch-pan-x select-none cursor-grab active:cursor-grabbing [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {categories.map((category) => (
+                <button
+                  key={category.slug}
+                  type="button"
+                  onClick={() => handleTabChange(category.slug)}
+                  aria-pressed={activeTab === category.slug}
+                  className={`flex-shrink-0 whitespace-nowrap px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 rounded-none cursor-pointer ${
+                    activeTab === category.slug
+                      ? "bg-[#a43a32] text-white shadow-sm"
+                      : "bg-white text-[#3d3a34] border border-[#171715]/10 hover:border-[#a43a32] hover:text-[#a43a32]"
+                  }`}
+                >
+                  {category.title}
+                </button>
+              ))}
+            </div>
           </div>
         </ScrollReveal>
 

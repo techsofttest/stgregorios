@@ -32,7 +32,7 @@ export const megaMenuCategories: MenuCategory[] = [
       { label: "Catholicos & Metropolitan", href: "/metropolitan" },
       { label: "Assistant Metropolitan", href: "/assistant-metropolitan" },
       { label: "Vicar", href: "/vicar" },
-      { label: "Clergy", href: "/clergy" },
+
     ],
   },
   {
@@ -56,7 +56,7 @@ export const megaMenuCategories: MenuCategory[] = [
         href: "/antiochian-faith-protection-movement",
       },
       { label: "Prayer Fellowships", href: "/prayer-fellowships" },
-      { label: "Choir", href: "/choir" },
+      { label: "Choir", href: "/choir" },      { label: "Clergy", href: "/clergy" },
     ],
   },
   {
