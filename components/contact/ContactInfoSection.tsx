@@ -39,6 +39,15 @@ export default function ContactInfoSection({contact,time}:{contact:any,time:any[
             {contact?.email ?? ""}
             </a>
           </p>
+           <p>
+            <span className="font-semibold text-[#1c1a17] block">Mobile No:</span>
+            <a
+              href={`tel:${contact?.phone}`}
+              className="text-[#8b2d26] hover:underline underline-offset-4 font-medium transition-colors"
+            >
+            {contact?.phone ?? ""}
+            </a>
+          </p>
           <p className="pt-1">
             <span className="font-semibold text-[#1c1a17] block">Parish Office &amp; Vicar:</span>
             <span className="text-[#554f46]">{contact.parish}</span>
