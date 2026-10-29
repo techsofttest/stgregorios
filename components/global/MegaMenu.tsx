@@ -29,7 +29,7 @@ export const megaMenuCategories: MenuCategory[] = [
     title: "HIERARCHY",
     items: [
       { label: "Patriarch", href: "/patriarch" },
-      { label: "Catholicos & Metropolitan", href: "/metropolitan" },
+      { label: "Catholicos & Metropolitan", href: "/metropolitian" },
       { label: "Assistant Metropolitan", href: "/assistant-metropolitan" },
       { label: "Vicar", href: "/vicar" },
 
