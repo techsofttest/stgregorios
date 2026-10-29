@@ -34,7 +34,7 @@ export default function Navigatiion({
   const normalizedSlug = (value: string) =>
     value.split("#")[0].replace(/^\/+|\/+$/g, "").toLowerCase();
 
-  // Convert vertical mouse wheel scrolling into horizontal scrolling when hovering
+  // Convert vertical mouse wheel scrolling into horizontal scrolling when hovering (mobile/tablet fallback)
   useEffect(() => {
     const el = categoryScrollRef.current;
     if (!el) return;
@@ -70,7 +70,7 @@ export default function Navigatiion({
     if (!isDragging.current || !categoryScrollRef.current) return;
     e.preventDefault();
     const x = e.pageX - categoryScrollRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.5; // Drag speed multiplier
+    const walk = (x - startX.current) * 1.5;
     categoryScrollRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
@@ -84,7 +84,7 @@ export default function Navigatiion({
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
           aria-label="Related pages"
-          className="flex snap-x snap-proximity items-center justify-start md:justify-center gap-2 overflow-x-auto overscroll-x-contain scroll-smooth pt-1 touch-pan-x select-none cursor-grab active:cursor-grabbing [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:px-10"
+          className="flex flex-row md:flex-wrap items-center justify-start md:justify-center gap-2 overflow-x-auto md:overflow-x-visible overscroll-x-contain scroll-smooth pt-1 touch-pan-x select-none cursor-grab active:cursor-grabbing [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           {category.map((tab) => {
             const tabSlug = tab.slug.trim();
@@ -109,7 +109,7 @@ export default function Navigatiion({
                 key={tab.id}
                 href={href}
                 aria-current={isActive ? "page" : undefined}
-                className={`flex-shrink-0 snap-start whitespace-nowrap px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 sm:px-5 sm:text-sm ${
+                className={`flex-shrink-0 whitespace-nowrap px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 sm:px-5 sm:text-sm ${
                   isActive
                     ? "bg-[#a43a32] text-white shadow-sm"
                     : "border border-[#171715]/10 bg-white text-[#3d3a34] hover:border-[#a43a32] hover:text-[#a43a32]"

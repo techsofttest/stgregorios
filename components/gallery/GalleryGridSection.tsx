@@ -184,7 +184,7 @@ export default function GalleryGridSection({ items }: GalleryGridSectionProps) {
               onMouseLeave={handleMouseLeave}
               onMouseUp={handleMouseUp}
               onMouseMove={handleMouseMove}
-              className="flex items-center justify-start sm:justify-center gap-2 sm:gap-3 overflow-x-auto pb-4 pt-1 touch-pan-x select-none cursor-grab active:cursor-grabbing [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              className="flex flex-row md:flex-wrap items-center justify-start md:justify-center gap-2 sm:gap-3 overflow-x-auto md:overflow-x-visible overscroll-x-contain scroll-smooth pb-4 pt-1 touch-pan-x select-none cursor-grab active:cursor-grabbing [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             >
               {categories.map((category) => (
                 <button
