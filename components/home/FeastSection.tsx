@@ -7,34 +7,29 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 interface FeastSectionProps {
   imageSrc?: string;
-  feast?:{
+  feast?: {
     title: string;
     content: string;
-    images:[];
-  }
+    images: string[];
+  };
 }
 
-export default function FeastSection({ imageSrc,feast }: FeastSectionProps) {
-  const perunnalImages = [
-    { src: "/perunnal/b1.png", alt: "Parumala Feast Celebration" },
-    { src: "/perunnal/b2.png", alt: "Parumala Church Procession" },
-    { src: "/perunnal/b3.png", alt: "Annual Feast Devotion" },
-  ];
-
+export default function FeastSection({ imageSrc, feast }: FeastSectionProps) {
+  const images = feast?.images ?? [];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const startXRef = useState<{ x: number; time: number }>({ x: 0, time: 0 })[0];
 
   useEffect(() => {
-    if (isDragging) return;
+    if (images.length <= 1 || isDragging) return;
 
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % perunnalImages.length);
+      setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 4500);
 
     return () => clearInterval(timer);
-  }, [perunnalImages.length, isDragging]);
+  }, [images.length, isDragging]);
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     setIsDragging(true);
@@ -53,7 +48,7 @@ export default function FeastSection({ imageSrc,feast }: FeastSectionProps) {
   };
 
   const handlePointerEnd = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDragging) return;
+    if (!isDragging || images.length === 0) return;
     try {
       e.currentTarget.releasePointerCapture(e.pointerId);
     } catch {}
@@ -66,10 +61,10 @@ export default function FeastSection({ imageSrc,feast }: FeastSectionProps) {
     if (isQuickSwipe || isPastThreshold) {
       if (deltaX < 0) {
         // Swiped left -> next image
-        setCurrentIndex((prev) => (prev + 1) % perunnalImages.length);
+        setCurrentIndex((prev) => (prev + 1) % images.length);
       } else {
         // Swiped right -> prev image
-        setCurrentIndex((prev) => (prev - 1 + perunnalImages.length) % perunnalImages.length);
+        setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
       }
     }
 
@@ -86,15 +81,18 @@ export default function FeastSection({ imageSrc,feast }: FeastSectionProps) {
             <div className="max-w-[600px]">
               <p className="eyebrow text-white">Annual Feast</p>
 
-              <h2 className="section-title mt-5" dangerouslySetInnerHTML={{__html:feast?.title ?? ""}} />
-                
-              
+              <h2
+                className="section-title mt-5"
+                dangerouslySetInnerHTML={{ __html: feast?.title ?? "" }}
+              />
 
-
-              <div className="mt-8 text-[15px] leading-8 text-white/90" dangerouslySetInnerHTML={{__html:feast?.content ?? ""}} />
+              <div
+                className="mt-8 text-[15px] leading-8 text-white/90"
+                dangerouslySetInnerHTML={{ __html: feast?.content ?? "" }}
+              />
 
               <Button
-                href="/feast"
+                href="/events"
                 variant="white"
                 className="mt-9"
                 arrowClassName="text-[#080b0d]"
@@ -104,7 +102,6 @@ export default function FeastSection({ imageSrc,feast }: FeastSectionProps) {
             </div>
           </ScrollReveal>
         </div>
-
 
         {/* Carousel Container (Right Side) with Draggable & Touch Gestures */}
         <div
@@ -116,7 +113,7 @@ export default function FeastSection({ imageSrc,feast }: FeastSectionProps) {
             isDragging ? "cursor-grabbing" : "cursor-grab"
           }`}
         >
-          {feast?.images.map((img, idx) => {
+          {images.map((img, idx) => {
             const isActive = idx === currentIndex;
             return (
               <div
@@ -136,7 +133,7 @@ export default function FeastSection({ imageSrc,feast }: FeastSectionProps) {
               >
                 <Image
                   src={img}
-                  alt={img ?? ""}
+                  alt={`Feast Image ${idx + 1}`}
                   fill
                   draggable={false}
                   className="object-cover pointer-events-none"
@@ -145,77 +142,80 @@ export default function FeastSection({ imageSrc,feast }: FeastSectionProps) {
                 />
                 <div className="absolute inset-0 bg-black/15 pointer-events-none" />
                 <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/60 via-black/25 to-transparent pointer-events-none" />
-                {/* Left gradient hidden on mobile view, shown on desktop (hidden lg:block) */}
                 <div className="hidden lg:block absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#a53c33] via-[#a53c33]/40 to-transparent pointer-events-none" />
               </div>
             );
           })}
 
           {/* Carousel Pagination Controls */}
-          <div className="absolute bottom-6 left-6 z-20 flex items-center gap-2">
-            {perunnalImages.map((_, idx) => (
+          {images.length > 1 && (
+            <div className="absolute bottom-6 left-6 z-20 flex items-center gap-2">
+              {images.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentIndex(idx);
+                  }}
+                  aria-label={`Go to slide ${idx + 1}`}
+                  className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${
+                    idx === currentIndex
+                      ? "w-16 bg-[#f0d984]"
+                      : "w-2.5 bg-white/50 hover:bg-white"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Arrow Navigation */}
+          {images.length > 1 && (
+            <div className="absolute bottom-6 right-6 z-20 flex gap-2">
               <button
-                key={idx}
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setCurrentIndex(idx);
+                  setCurrentIndex(
+                    (prev) => (prev - 1 + images.length) % images.length
+                  );
                 }}
-                aria-label={`Go to slide ${idx + 1}`}
-                className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${
-                  idx === currentIndex
-                    ? "w-16 bg-[#f0d984]"
-                    : "w-2.5 bg-white/50 hover:bg-white"
-                }`}
-              />
-            ))}
-          </div>
-
-          {/* Arrow Navigation */}
-          <div className="absolute bottom-6 right-6 z-20 flex gap-2">
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setCurrentIndex(
-                  (prev) => (prev - 1 + perunnalImages.length) % perunnalImages.length
-                );
-              }}
-              aria-label="Previous slide"
-              className="flex h-10 w-10 items-center justify-center bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-[#f0d984] hover:text-[#080b0d] cursor-pointer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="h-5 w-5"
+                aria-label="Previous slide"
+                className="flex h-10 w-10 items-center justify-center bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-[#f0d984] hover:text-[#080b0d] cursor-pointer"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setCurrentIndex((prev) => (prev + 1) % perunnalImages.length);
-              }}
-              aria-label="Next slide"
-              className="flex h-10 w-10 items-center justify-center bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-[#f0d984] hover:text-[#080b0d] cursor-pointer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="h-5 w-5"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="h-5 w-5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentIndex((prev) => (prev + 1) % images.length);
+                }}
+                aria-label="Next slide"
+                className="flex h-10 w-10 items-center justify-center bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-[#f0d984] hover:text-[#080b0d] cursor-pointer"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-              </svg>
-            </button>
-          </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="h-5 w-5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>
