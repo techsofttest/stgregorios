@@ -29,10 +29,8 @@ export default function DonationsTabSection({ donation, payment }: DataProp) {
   const [isQrVisible, setIsQrVisible] = useState(false);
 
   const Tab = [
-    { id: "students", tabLabel: "Educational Aid" },
-    { id: "housing", tabLabel: "Medical Aid" },
-    { id: "elderly", tabLabel: "Natural Calamity Aid" },
-    { id: "charity", tabLabel: "Donations" },
+    { id: "charity", tabLabel: "Charity" },
+    { id: "donation", tabLabel: "Donations" },
   ];
   
   const [activeTabId, setActiveTabId] = useState<string>("students");
@@ -144,10 +142,10 @@ export default function DonationsTabSection({ donation, payment }: DataProp) {
     [&>hr]:col-span-full  [&>hr]:border-t [&>hr]:border-[#171715]/10 
     [&>p>i]:mt-8 [&>p>i]:py-1 [&>p>i]:text-sm [&>p>i]:sm:text-base [&>p>i]:leading-relaxed [&>p>i]:text-[#454038] [&>p>i]:italic
     /* Unordered Lists */
-    [&>ul]:col-span-full [&>ul]:mt-5 [&>ul]:grid [&>ul]:sm:grid-cols-2 [&>ul]:gap-x-6 [&>ul]:gap-y-3.5 
+    [&>ul]:col-span-full [&>ul]:mt-5 [&>ul]:grid [&>ul]:sm:grid-cols-1 [&>ul]:gap-x-6 [&>ul]:gap-y-3.5 
     [&>ul>li]:flex [&>ul>li]:items-start [&>ul>li]:gap-2.5 [&>ul>li]:text-sm [&>ul>li]:sm:text-[15px] [&>ul>li]:leading-relaxed [&>ul>li]:text-[#3d3932] 
     [&>ul>li]:before:content-['✠'] [&>ul>li]:before:text-[#a43a32] [&>ul>li]:before:text-sm [&>ul>li]:before:font-bold [&>ul>li]:before:select-none [&>ul>li]:before:mt-0.5
-    
+            
     [&>blockquote:not(:has(p+p))]:col-span-full [&>blockquote:not(:has(p+p))]:py-1 [&>blockquote:not(:has(p+p))]:text-sm [&>blockquote:not(:has(p+p))]:sm:text-base [&>blockquote:not(:has(p+p))]:leading-relaxed [&>blockquote:not(:has(p+p))]:text-[#454038] [&>blockquote:not(:has(p+p))]:italic
     [&>blockquote]:pt-6 [&>blockquote]:flex [&>blockquote>p]:flex-col [&>blockquote>p>i]:sm:flex-row 
                   [&>blockquote]:sm:justify-between  [&>blockquote]:gap-2 [&>blockquote>p>strong]:text-xs  [&>blockquote>p>strong]:font-bold  [&>p>strong]:uppercase  [&>blockquote>p>strong]:tracking-widest  [&>blockquote>p>strong]:text-[#a43a32]  [&>p>strong]:whitespace-nowrap
