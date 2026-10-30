@@ -94,9 +94,10 @@ export const megaMenuCategories: MenuCategory[] = [
   {
     title: "SUPPORT AND DONATIONS",
     items: [
-      { label: "Educational Aid", href: "/donations" },
-      { label: "Medical Aid", href: "/donations" },
-      { label: "Natural Calamity Aid", href: "/donations" },
+      // { label: "Educational Aid", href: "/donations" },
+      // { label: "Medical Aid", href: "/donations" },
+      // { label: "Natural Calamity Aid", href: "/donations" },
+      { label: "Charity", href: "/donations" },
       { label: "Donations", href: "/donations" },
     ],
   },
