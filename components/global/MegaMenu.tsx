@@ -20,7 +20,7 @@ export const megaMenuCategories: MenuCategory[] = [
     items: [
       { label: "Our Parish", href: "/about" },
       { label: "History of the Church", href: "/church-history" },
-      { label: "Patron Saint (St. Gregorios)", href: "/about#patron-saint-st-gregorios" },
+      { label: "Patron Saint (St. Gregorios)", href: "/patron-saint-st-gregorios" },
       { label: "Vision & Mission", href: "/about#vision" },
       { label: "Our Faith", href: "/our-faith" },
     ],

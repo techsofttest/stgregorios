@@ -117,7 +117,6 @@ export default function DonationsTabSection({ donation, payment }: DataProp) {
         <div key={activeTabId} className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14">
           {/* Left Column (7 cols): Title & Description */}
           <div className="lg:col-span-7">
-            <ScrollReveal direction="up" duration={800}>
               <div className="flex items-center gap-2 text-[#a43a32] text-xs font-bold uppercase tracking-widest">
                 <span>✠</span>
                 <span>{activeDonation?.title}</span>
@@ -153,7 +152,6 @@ export default function DonationsTabSection({ donation, payment }: DataProp) {
     [&>figure>figcaption]:pt-2 [&>figure>figcaption]:text-sm [&>figure>figcaption]:text-[#171715] [&>figure>figcaption]:leading-snug"
   dangerouslySetInnerHTML={{ __html: activeDonation?.content ?? "" }}
 />
-            </ScrollReveal>
           </div>
 
           {/* Right Column (5 cols): Payment QR Card */}
