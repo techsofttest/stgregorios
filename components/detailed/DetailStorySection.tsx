@@ -7,6 +7,11 @@ interface DetailStorySectionProps {
 }
 
 export default function DetailStorySection({ content = "",category="" }: DetailStorySectionProps) {
+  const contentWithLinkAttributes = content.replace(/<a\b[^>]*>/gi, (tag) => {
+    const attributes = tag.replace(/\s+(?:target|rel)\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+    return attributes.replace(/^<a\b/i, '<a target="_blank" rel="noopener noreferrer"');
+  });
+
   return (
     <section id="detail-story-section" className="relative py-24 lg:py-24 bg-[#f7f4ed] overflow-hidden">
       <div className="fixed inset-0 h-screen w-full z-0 pointer-events-none opacity-[0.1] mix-blend-multiply overflow-hidden">
@@ -81,6 +86,7 @@ export default function DetailStorySection({ content = "",category="" }: DetailS
                 [&_hr]:my-8 [&_hr]:border-[#171715]/15
                 [&_figure]:my-8 [&_figure]:overflow-hidden
                 [&_figure]:bg-[#e9e3d7]
+                [&>a]:text-[#a43a32] [&>a]:underline [&>a]:underline-offset-4
                 [&_figure_img]:h-auto [&_figure_img]:w-full
                 [&_figure_img]:object-cover
                 [&>p>strong]:font-display [&>p>strong]:text-lg [&>p>strong]:sm:text-xl [&>p>strong]:font-semibold [&>p>strong]:text-[#a43a32]
@@ -88,7 +94,7 @@ export default function DetailStorySection({ content = "",category="" }: DetailS
                 /* Blockquote & Scripture Citations */
                 [&>blockquote]:mt-10 [&>blockquote]:pt-2 [&>blockquote>p>i]:font-display [&>blockquote>p>i]:italic [&>blockquote>p>i]:text-lg [&>blockquote>p>i]:sm:text-xl [&>blockquote>p>i]:text-[#1a1916]
                 [&>p>span.text-small>strong]:mt-1 [&>p>span.text-small>strong]:text-xs [&>p>span.text-small>strong]:font-bold [&>p>span.text-small>strong]:uppercase [&>p>span.text-small>strong]:tracking-widest [&>p>span.text-small>strong]:text-[#a43a32]"
-              dangerouslySetInnerHTML={{ __html: content }}
+              dangerouslySetInnerHTML={{ __html: contentWithLinkAttributes }}
             />
           </ScrollReveal>
 
