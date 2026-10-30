@@ -87,8 +87,8 @@ export const megaMenuCategories: MenuCategory[] = [
   {
     title: "ST. GREGORIOS PUBLIC SCHOOL & JUNIOR COLLEGE",
     items: [
-      { label: "History", href: "/#school#history" },
-      { label: "School Website", href: "https://stgregoriosschool.com", external: true },
+      { label: "History", href: "/school-history" },
+      { label: "School Website", href: "http://stgregoriospublicschool.com/index.html", external: true },
     ],
   },
   {
