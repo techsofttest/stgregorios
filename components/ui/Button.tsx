@@ -35,7 +35,7 @@ export default function Button({
       "bg-transparent text-current hover:bg-black/5 border border-current",
   };
 
-  const combinedClasses = `group inline-flex items-center justify-center px-7 py-3.5 text-sm sm:text-base font-semibold tracking-wide transition-all duration-300 ${variantStyles[variant]} ${className}`;
+  const combinedClasses = `group inline-flex items-center justify-center px-7 py-3.5 text-sm sm:text-base font-semibold tracking-wide transition-all duration-300 cursor-pointer ${variantStyles[variant]} ${className}`;
 
   const content = (
     <>

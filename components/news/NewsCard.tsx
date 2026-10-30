@@ -64,7 +64,7 @@ export default function NewsCard({
         <button
           type="button"
           onClick={onLearnMore}
-          className="mt-4 self-start border-b border-[#a43a32] pb-1 text-xs font-bold uppercase tracking-widest text-[#a43a32] transition-colors hover:border-[#071b27] hover:text-[#071b27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a43a32] focus-visible:ring-offset-4"
+          className="mt-4 self-start border-b border-[#a43a32] pb-1 text-xs font-bold uppercase tracking-widest text-[#a43a32] transition-colors hover:border-[#071b27] hover:text-[#071b27] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a43a32] focus-visible:ring-offset-4 cursor-pointer"
           aria-label={`Learn more about ${item.title}`}
         >
           Learn More <span aria-hidden="true">→</span>

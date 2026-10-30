@@ -129,13 +129,10 @@ export default function DonationsTabSection({ donation, payment }: DataProp) {
               />
               <div
   className="mt-8 
-    /* Main Layout Grid */
     grid grid-cols-1 sm:grid-cols-12 gap-x-6 gap-y-4
     
-    /* Paragraphs span full width */
     [&>p]:col-span-full [&>p]:text-base [&>p]:sm:text-lg [&>p]:leading-relaxed [&>p]:text-[#2c2a26] [&>p]:font-display [&>p]:font-light 
     
-    /* Bullet Heading */
     [&>p>strong]:col-span-full [&>p>strong]:text-left [&>p>strong]:text-xs [&>p>strong]:font-bold [&>p>strong]:tracking-[0.2em] [&>p>strong]:uppercase [&>p>strong]:text-[#a43a32]
     
     /* Horizontal Rules */

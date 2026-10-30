@@ -120,7 +120,7 @@ export default function AboutSectionNavigation() {
             type="button"
             onClick={() => selectTab(tab.value)}
             aria-pressed={activeTab === tab.value}
-            className={`flex-shrink-0 whitespace-nowrap px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 sm:px-5 sm:text-sm ${
+            className={`flex-shrink-0 whitespace-nowrap px-4 py-2.5 text-xs font-semibold uppercase cursor-pointer tracking-wider transition-all duration-300 sm:px-5 sm:text-sm ${
               activeTab === tab.value
                 ? "bg-[#a43a32] text-white shadow-sm"
                 : "border border-[#171715]/10 bg-white text-[#3d3a34] hover:border-[#a43a32] hover:text-[#a43a32]"

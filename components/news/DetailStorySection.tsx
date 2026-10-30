@@ -55,7 +55,7 @@ export default function DetailStorySection({
           type="button"
           onClick={onClose}
           aria-label="Close story"
-          className="absolute right-3 top-3 z-30 flex h-10 w-10 items-center justify-center text-[#071b27] transition-all duration-300 hover:rotate-90 hover:text-[#a43a32] focus:outline-none focus:ring-2 focus:ring-[#d6b75b] sm:right-5 sm:top-5"
+          className="absolute right-3 top-3 z-30 flex h-10 w-10 items-center justify-center text-[#071b27] transition-all duration-300 hover:rotate-90 hover:text-[#a43a32] focus:outline-none focus:ring-2 focus:ring-[#d6b75b] sm:right-5 sm:top-5 cursor-pointer"
         >
           <svg
             className="h-5 w-5"
@@ -158,7 +158,7 @@ export default function DetailStorySection({
           <button
             type="button"
             onClick={onClose}
-            className="bg-[#071b27] px-7 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-sm transition-colors duration-300 hover:bg-[#a43a32] focus:outline-none focus:ring-2 focus:ring-[#d6b75b] focus:ring-offset-2"
+            className="bg-[#071b27] px-7 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-sm transition-colors duration-300 hover:bg-[#a43a32] focus:outline-none focus:ring-2 focus:ring-[#d6b75b] focus:ring-offset-2 cursor-pointer"
           >
             Close Window
           </button>
