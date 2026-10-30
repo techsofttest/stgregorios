@@ -61,8 +61,6 @@ export default function DetailStorySection({ content = "",category="" }: DetailS
       <div className="relative z-10 mx-auto max-w-[1400px] px-8 sm:px-12 lg:px-16 flex justify-center">
         <div className="w-full max-w-3xl">
           
-          {/* Render HTML content directly with styling wrappers */}
-          <ScrollReveal direction="up">
              <p className="eyebrow text-[#a43a32] text-center ">{category}</p>
             <div 
               className="story-html-content 
@@ -96,7 +94,6 @@ export default function DetailStorySection({ content = "",category="" }: DetailS
                 [&>p>span.text-small>strong]:mt-1 [&>p>span.text-small>strong]:text-xs [&>p>span.text-small>strong]:font-bold [&>p>span.text-small>strong]:uppercase [&>p>span.text-small>strong]:tracking-widest [&>p>span.text-small>strong]:text-[#a43a32]"
               dangerouslySetInnerHTML={{ __html: contentWithLinkAttributes }}
             />
-          </ScrollReveal>
 
         </div>
       </div>
