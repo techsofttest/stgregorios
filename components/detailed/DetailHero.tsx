@@ -230,7 +230,7 @@ export default function DetailHero({
                   fill
                   draggable={false}
                   priority={idx === 0}
-                  className="object-cover object-center pointer-events-none"
+                  className="object-cover  relative  aspect-[3/4] object-center pointer-events-none"
                   sizes="(max-width: 1024px) 100vw, 55vw"
                 />
                 {/* Overlays matching FeastSection aesthetic */}

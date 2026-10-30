@@ -123,7 +123,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
                   Parish Chronicles
                 </p>
                 <h2 className="section-title mt-2">
-                  More News &amp;{" "}
+                  More Events &amp;{" "}
                   <span className="text-[#a43a32]">Happenings</span>
                 </h2>
               </div>
@@ -132,7 +132,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
                 href="/news"
                 className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#a43a32] transition-colors hover:text-[#171715]"
               >
-                <span>View All News</span>
+                <span>View All</span>
                 <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>

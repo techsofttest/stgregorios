@@ -131,7 +131,7 @@ export default function WelcomeSection({about}:{about:any}) {
 
           <ScrollReveal direction="up" delay={200} duration={800}>
             <div>
-              <div className="[&_h3]:font-display [&_h3]:text-[clamp(1.5rem,2.5vw,2.35rem)] [&_h3]:leading-[1.25] [&_h3]:text-[#1a1916] [&_p]:mt-7 [&_p]:max-w-[720px] [&_p]:text-[15px] [&_p]:leading-8 [&_p]:text-[#3d3a34]" dangerouslySetInnerHTML={{__html:about?.content ?? ""}} />
+              <div className="[&_h3]:font-display [&_h3]:text-[clamp(1.5rem,2.5vw,2.35rem)] [&_h3]:leading-[1.25] [&_h3]:text-[#1a1916]  [&_p]:max-w-[720px] [&_p]:text-[15px] [&_p]:leading-8 [&_p]:text-[#3d3a34]" dangerouslySetInnerHTML={{__html:about?.content ?? ""}} />
 
               {/* <p className="mt-7 max-w-[720px] text-[15px] leading-8 text-[#3d3a34]">
                 Our parish is a spiritual home where we gather as one family in

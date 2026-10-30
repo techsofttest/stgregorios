@@ -12,33 +12,7 @@ interface Bishop {
 }
 
 export default function BishopsSection({clergy}:{clergy:any[]}) {
-  const bishops: Bishop[] = [
-    {
-      name: "Baselious Joseph I",
-      title: "Catholicos of the East",
-      image: "/bishops/Baselious Joseph2.png",
-      description:
-        "Providing spiritual shepherdship and archpastoral guidance to the Jacobite Syrian Christian community.",
-      link: "/catholicos",
-    },
-    {
-      name: "Mor Eusebius Kuriakose",
-      title: "Metropolitan",
-      image: "/bishops/Mor Eusebius-Kuriakose.jpg",
-      description:
-        "Guiding our diocese with apostolic vision, pastoral care, and dedication to Gospel service.",
-      link: "/metropolitan",
-    },
-  ];
 
-  const vicar = {
-    name: "Rev. Fr. Eldo",
-    title: "Vicar",
-    image: "/vicar/FrEldo-Vicar.png",
-    description:
-      "Administering the parish sacramental life, spiritual counseling, and ministering to all families of St. Gregorios Church.",
-    link: "/vicar",
-  };
 
   return (
     <section className="relative bg-[#f7f4ed] py-20 lg:py-28 overflow-hidden">

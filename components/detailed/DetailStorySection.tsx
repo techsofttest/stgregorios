@@ -57,7 +57,7 @@ export default function DetailStorySection({ content = "",category="" }: DetailS
         <div className="w-full max-w-3xl">
           
           {/* Render HTML content directly with styling wrappers */}
-          <ScrollReveal direction="up" duration={800}>
+          <ScrollReveal direction="up">
              <p className="eyebrow text-[#a43a32] text-center ">{category}</p>
             <div 
               className="story-html-content 
