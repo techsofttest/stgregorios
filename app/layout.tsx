@@ -1,22 +1,8 @@
 import type { Metadata } from "next";
-import { Cinzel, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/global/Header";
 import Footer from "@/components/global/Footer";
 export const dynamic = "force-dynamic";
-const displayFont = Cinzel({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const bodyFont = Manrope({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 
 export const metadata: Metadata = {
@@ -68,15 +54,14 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body
-        className={`${displayFont.variable} ${bodyFont.variable}`}
-      >  <Header />
+      <body>
+        <Header />
         {children}
-            <Footer time={data?.time ?? []} contact={data?.contact} />
+        <Footer time={data?.time ?? []} contact={data?.contact} />
       </body>
     </html>
   );
