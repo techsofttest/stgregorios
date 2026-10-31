@@ -61,7 +61,7 @@ export default function DetailHero({
     // Capture pointer so drag remains smooth even if cursor moves out of container
     try {
       e.currentTarget.setPointerCapture(e.pointerId);
-    } catch {}
+    } catch { }
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -74,7 +74,7 @@ export default function DetailHero({
     if (!isDragging) return;
     try {
       e.currentTarget.releasePointerCapture(e.pointerId);
-    } catch {}
+    } catch { }
 
     const deltaX = e.clientX - startXRef.x;
     const duration = Date.now() - startXRef.time;
@@ -97,7 +97,7 @@ export default function DetailHero({
 
   return (
     <section className="relative w-full bg-[#071b27] text-white overflow-hidden pt-20 lg:pt-0">
-      <div className="grid lg:grid-cols-[0.95fr_1.05fr] min-h-[560px] lg:min-h-screen">
+      <div className="grid lg:grid-cols-[0.8fr_1.2fr] xl:grid-cols-[0.75fr_1.25fr] min-h-[560px] lg:min-h-screen">
         {/* Left Side: Content Container */}
         <div className="relative flex items-center px-7 py-16 sm:px-12 lg:px-16 xl:px-24 overflow-hidden">
           {/* Subtle Background Watermark: Christian Orthodox Cross SVG */}
@@ -179,12 +179,12 @@ export default function DetailHero({
               </div>
 
               {/* Title & Subtitle */}
-              <h1 className="font-display text-3xl sm:text-4xl lg:text-4xl font-semibold leading-tight text-white [&_span]:text:[#d6b75b] "   dangerouslySetInnerHTML={{ __html: title }}/>
+              <h1 className="font-display text-3xl sm:text-4xl lg:text-4xl font-semibold leading-tight text-white [&_span]:text:[#d6b75b] " dangerouslySetInnerHTML={{ __html: title }} />
 
               {/* Scripture Verse Quote Box */}
               {verseQuote && (
                 <div className="mt-8">
-                  <p className="font-display italic text-base sm:text-lg text-white/95 leading-relaxed [&_.text-small]:mt-2 [&_.text-small]:text-xs [&_.text-small]:font-bold [&_.text-small]:uppercase [&_.text-small]:tracking-widest [&_.text-small]:text-[#d6b75b]" dangerouslySetInnerHTML={{__html:verseQuote ?? ""}} />
+                  <p className="font-display italic text-base sm:text-lg text-white/95 leading-relaxed [&_.text-small]:mt-2 [&_.text-small]:text-xs [&_.text-small]:font-bold [&_.text-small]:uppercase [&_.text-small]:tracking-widest [&_.text-small]:text-[#d6b75b]" dangerouslySetInnerHTML={{ __html: verseQuote ?? "" }} />
                   {verseCitation && (
                     <p className="mt-2 text-xs font-bold uppercase tracking-widest text-[#d6b75b]">
                       — {verseCitation}
@@ -202,9 +202,8 @@ export default function DetailHero({
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerEnd}
           onPointerCancel={handlePointerEnd}
-          className={`relative min-h-[460px] sm:min-h-[520px] lg:min-h-full h-full w-full overflow-hidden select-none touch-pan-y ${
-            heroImages.length > 1 ? (isDragging ? "cursor-grabbing" : "cursor-grab") : ""
-          }`}
+          className={`relative min-h-[460px] sm:min-h-[520px] lg:min-h-full h-full w-full overflow-hidden select-none touch-pan-y ${heroImages.length > 1 ? (isDragging ? "cursor-grabbing" : "cursor-grab") : ""
+            }`}
         >
           {heroImages.map((src, idx) => {
             const isActive = idx === currentIndex;
@@ -220,9 +219,8 @@ export default function DetailHero({
                     ? "none"
                     : "opacity 900ms ease-in-out, transform 400ms ease-out",
                 }}
-                className={`absolute inset-0 w-full h-full min-h-[460px] sm:min-h-[520px] lg:min-h-full ${
-                  isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                }`}
+                className={`absolute inset-0 w-full h-full min-h-[460px] sm:min-h-[520px] lg:min-h-full ${isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                  }`}
               >
                 <Image
                   src={src}
@@ -230,13 +228,13 @@ export default function DetailHero({
                   fill
                   draggable={false}
                   priority={idx === 0}
-                  className="object-cover  relative  aspect-[3/4] object-center pointer-events-none"
-                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  className="object-cover object-center pointer-events-none"
+                  sizes="(max-width: 1024px) 100vw, 65vw"
                 />
                 {/* Overlays matching FeastSection aesthetic */}
                 <div className="absolute inset-0 bg-black/15 pointer-events-none" />
-                <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/75 via-black/30 to-transparent pointer-events-none" />
-                <div className="absolute inset-y-0 left-0 w-36 sm:w-48 bg-gradient-to-r from-[#071b27] via-[#071b27]/50 to-transparent pointer-events-none hidden lg:block" />
+                <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/75 via-black/30 to-transparent pointer-events-none" />
+                <div className="absolute inset-y-0 left-0 w-16 sm:w-20 bg-gradient-to-r from-[#071b27] via-[#071b27]/10 to-transparent pointer-events-none hidden lg:block" />
               </div>
             );
           })}
@@ -253,11 +251,10 @@ export default function DetailHero({
                     setCurrentIndex(idx);
                   }}
                   aria-label={`Go to slide ${idx + 1}`}
-                  className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${
-                    idx === currentIndex
-                      ? "w-16 bg-[#f0d984]"
-                      : "w-2.5 bg-white/50 hover:bg-white"
-                  }`}
+                  className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${idx === currentIndex
+                    ? "w-16 bg-[#f0d984]"
+                    : "w-2.5 bg-white/50 hover:bg-white"
+                    }`}
                 />
               ))}
             </div>
