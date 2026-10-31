@@ -58,7 +58,7 @@ export default async function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body className="font-body antialiased selection:bg-[#a43a32] selection:text-white">
         <Header />
         {children}
         <Footer time={data?.time ?? []} contact={data?.contact} />
