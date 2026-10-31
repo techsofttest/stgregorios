@@ -24,14 +24,15 @@ export const metadata: Metadata = {
     "St. Gregorios Jacobite Syrian Orthodox Church — rooted in apostolic faith, prayer, heritage and service.",
 };
 interface ProductResponse {
-    time: {title:string;
-      option:string;
-      description:string;
-    }[];
-  contact:any;
-  category:{
-    name:string;
-    slug:string;
+  time: {
+    title: string;
+    option: string;
+    description: string;
+  }[];
+  contact: any;
+  category: {
+    name: string;
+    slug: string;
   }[];
 }
 
@@ -54,7 +55,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-     let data: ProductResponse | null = null;
+  let data: ProductResponse | null = null;
 
   try {
     data = await getSEO();
@@ -72,10 +73,11 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${displayFont.variable} ${bodyFont.variable}`}
-      >  <Header />
+        className={`${displayFont.variable} ${bodyFont.variable} font-body antialiased`}
+      >
+        <Header />
         {children}
-            <Footer time={data?.time ?? []} contact={data?.contact} />
+        <Footer time={data?.time ?? []} contact={data?.contact} />
       </body>
     </html>
   );

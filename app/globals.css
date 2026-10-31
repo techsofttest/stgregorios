@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Cinzel", Georgia, serif;
-  --font-body: "Manrope", sans-serif;
+  --font-display: var(--font-display), "Cinzel", Georgia, serif;
+  --font-body: var(--font-body), "Manrope", sans-serif;
   --color-black: #080b0d;
   --color-navy: #071b27;
   --color-ivory: #f7f4ed;
@@ -12,10 +12,8 @@
 }
 
 :root {
-  --font-display: 'Cinzel', serif;
-  --font-body: 'Manrope', sans-serif;
-  --display: "Cinzel", Georgia, serif;
-  --body: var(--font-body);
+  --display: var(--font-display, "Cinzel", Georgia, serif);
+  --body: var(--font-body, "Manrope", sans-serif);
 
   --black: #080b0d;
   --navy: #071b27;
