@@ -14,7 +14,7 @@ export default function ContactHero({hero}: {hero:any}) {
       {/* Background Sanctuary Image with Dark Overlays (Matching NewsHero & GalleryHero) */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <Image
-          src="/interior/Symmetrical Syrian Orthodox Sanctuary.png"
+          src={hero.image || ""}
           alt="Parish Background"
           fill
           priority

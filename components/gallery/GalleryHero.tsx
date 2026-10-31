@@ -14,7 +14,7 @@ export default function GalleryHero({hero}:{hero:any}) {
       {/* Background Sanctuary/Parish Image at Low Opacity (Matching NewsHero & CommitteeHero) */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <Image
-          src="/interior/Symmetrical Syrian Orthodox Sanctuary.png"
+          src={hero.image || "/interior/Symmetrical Syrian Orthodox Sanctuary.png"}
           alt="Parish Background"
           fill
           priority

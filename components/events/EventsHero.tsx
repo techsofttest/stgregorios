@@ -14,7 +14,7 @@ export default function EventsHero({hero}: {hero:any}) {
       {/* Background Sanctuary/Parish Image with Dark Overlays (Matching NewsHero) */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <Image
-          src="/interior/Symmetrical Syrian Orthodox Sanctuary.png"
+          src={hero.image || ""}
           alt="Parish Background"
           fill
           priority

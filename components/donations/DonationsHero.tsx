@@ -7,7 +7,7 @@ export default function DonationsHero({hero}:{hero:any}) {
       {/* Background Sanctuary Image with Overlays */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <Image
-          src="/interior/Ornate Symmetrical Church Sanctuary.png"
+          src={hero.image || ""}
           alt="Church Sanctuary"
           fill
           priority
