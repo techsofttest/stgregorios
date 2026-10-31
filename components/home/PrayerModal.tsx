@@ -49,46 +49,56 @@ export default function PrayerModal({ isOpen, onClose }: PrayerModalProps) {
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+
 const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
     setIsSubmitting(true);
-  const apiBase = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
 
-    if (!apiBase) {
-      throw new Error("The API URL is not configured.");
-    }
     try {
-      const response = await fetch(`${apiBase}/prayer`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          // Include CSRF token if your Laravel application uses Sanctum or standard cookies
-          "X-CSRF-TOKEN": (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement)?.content || "",
-        },
-        body: JSON.stringify({
-          name: fullName,
-          email: email,
-          phone: phone,
-          service: prayerFor,      // Maps to 'service' / 'cause' in your controller
-          message: requestText,    // Maps to 'message' / 'notes' in your controller
-        }),
-      });
+        const apiBase = process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "");
 
-      const data = await response.json();
+        if (!apiBase) {
+            throw new Error("The API URL is not configured.");
+        }
 
-      if (response.ok && data.success) {
+        const response = await fetch(`${apiBase}/prayer`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({
+                name: fullName,
+                email,
+                phone,
+                service: prayerFor,
+                message: requestText,
+            }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            console.error("Prayer API response:", data);
+            alert(data.message || "Please check the submitted information.");
+            return;
+        }
+
         setIsSubmitted(true);
-      } else {
-        alert(data.message || "Please check the submitted information.");
-      }
+
     } catch (error) {
-      console.error("Error submitting prayer request:", error);
-      alert("An unexpected error occurred. Please try again.");
+        console.error("Prayer request error:", error);
+        alert(
+            error instanceof Error
+                ? error.message
+                : "Unable to submit prayer request. Please try again."
+        );
     } finally {
-      setIsSubmitting(false);
+        setIsSubmitting(false);
     }
-  };
+};
+
 
   const handleReset = () => {
     setFullName("");
